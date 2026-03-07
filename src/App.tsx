@@ -95,11 +95,11 @@ export default function App() {
                   opacity: 1,
                   transition: {
                     delayChildren: 1,
-                    staggerChildren: 0.08,
+                    staggerChildren: 0.06,
                   },
                 },
               }}
-              className="font-mono text-white mb-6 ml-6 flex items-center gap-1"
+              className="font-mono text-amber-500 mb-6 ml-6 flex flex-wrap items-center tracking-normal"
             >
               {"sudhanshu shekhar".split("").map((char, index) => (
                 <motion.span
@@ -108,9 +108,9 @@ export default function App() {
                     hidden: { opacity: 0, display: "none" },
                     visible: { opacity: 1, display: "inline" },
                   }}
-                  className="uppercase tracking-[0.2em] font-bold"
+                  className="uppercase font-bold"
                 >
-                  {char}
+                  {char === " " ? "\u00A0" : char}
                 </motion.span>
               ))}
               <motion.span
