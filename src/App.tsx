@@ -87,16 +87,36 @@ export default function App() {
               <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
             </p>
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.1 }}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 1 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    delayChildren: 1,
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
               className="font-mono text-white mb-6 ml-6 flex items-center gap-1"
             >
-              <span className="uppercase tracking-[0.2em] font-bold">sudhanshu shekhar</span>
+              {"sudhanshu shekhar".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, display: "none" },
+                    visible: { opacity: 1, display: "inline" },
+                  }}
+                  className="uppercase tracking-[0.2em] font-bold"
+                >
+                  {char}
+                </motion.span>
+              ))}
               <motion.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
-                className="inline-block w-2 h-5 bg-cyber-green"
+                className="inline-block w-2 h-5 bg-cyber-green ml-1"
               />
             </motion.p>
             <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
