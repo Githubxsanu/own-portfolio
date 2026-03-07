@@ -507,6 +507,62 @@ export default function CyberMascot3D() {
         }
     }, []);
 
+    const onTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+        const touch = e.touches[0];
+        const r = e.currentTarget.getBoundingClientRect();
+        const tx = touch.clientX - r.left;
+        const ty = touch.clientY - r.top;
+        const W = r.width;
+        const H = r.height;
+
+        const cx = W / 2;
+        const cy = H / 2;
+
+        const dxL = tx - (cx - 55 + stretchL.current);
+        const dyL = ty - (cy - 110 + jumpY.current);
+        if (Math.sqrt(dxL * dxL + dyL * dyL) < 50) {
+            isDraggingL.current = true;
+            isHovering.current = true;
+            lastMousePos.current = { x: tx, y: ty };
+            return;
+        }
+
+        const dxR = tx - (cx + 52 + stretchR.current);
+        const dyR = ty - (cy - 110 + jumpY.current);
+        if (Math.sqrt(dxR * dxR + dyR * dyR) < 50) {
+            isDraggingR.current = true;
+            isHovering.current = true;
+            lastMousePos.current = { x: tx, y: ty };
+            return;
+        }
+        isHovering.current = true;
+    }, []);
+
+    const onTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+        const touch = e.touches[0];
+        const r = e.currentTarget.getBoundingClientRect();
+        const tx = touch.clientX - r.left;
+        const ty = touch.clientY - r.top;
+        mouse.current = { x: tx, y: ty };
+
+        if (isDraggingL.current) {
+            const dx = tx - lastMousePos.current.x;
+            stretchL.current = Math.min(40, Math.max(-150, stretchL.current + dx));
+            lastMousePos.current = { x: tx, y: ty };
+        }
+        if (isDraggingR.current) {
+            const dx = tx - lastMousePos.current.x;
+            stretchR.current = Math.min(150, Math.max(-40, stretchR.current + dx));
+            lastMousePos.current = { x: tx, y: ty };
+        }
+    }, []);
+
+    const onTouchEnd = useCallback(() => {
+        isDraggingL.current = false;
+        isDraggingR.current = false;
+        isHovering.current = false;
+    }, []);
+
     return (
         <div
             onMouseEnter={onMouseEnter}
@@ -514,6 +570,9 @@ export default function CyberMascot3D() {
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
             style={{
                 width: '100%',
                 height: '100%',

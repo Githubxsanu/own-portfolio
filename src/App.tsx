@@ -141,8 +141,8 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block"
-              style={{ height: '600px' }}
+              className="relative mt-12 lg:mt-0"
+              style={{ height: 'clamp(400px, 60vh, 600px)' }}
             >
               <Suspense fallback={
                 <div className="w-full h-full flex items-center justify-center">
