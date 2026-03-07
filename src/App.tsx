@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion } from "motion/react";
 import { Terminal, Shield, Search, Code2, Database, Lock, Globe, Mail, Github, Linkedin, ExternalLink, ChevronRight, FileText, Cpu, Network } from "lucide-react";
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+const CyberMascot3D = lazy(() => import('./CyberMascot3D'));
+
+const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const lowerLetters = "abcdefghijklmnopqrstuvwxyz0123456789";
 
 const ScrambleText = ({ text, className }: { text: string, className?: string }) => {
   const [displayText, setDisplayText] = useState(text);
@@ -14,28 +17,19 @@ const ScrambleText = ({ text, className }: { text: string, className?: string })
       let iteration = 0;
       interval = setInterval(() => {
         setDisplayText(
-          text
-            .split("")
-            .map((letter, index) => {
-              if (index < iteration) {
-                return text[index];
-              }
-              if (letter === " ") return " ";
-              return letters[Math.floor(Math.random() * letters.length)];
-            })
-            .join("")
+          text.split("").map((letter, index) => {
+            if (index < iteration) return text[index];
+            if (letter === " " || letter === "&") return letter;
+            const pool = letter === letter.toUpperCase() ? upperLetters : lowerLetters;
+            return pool[Math.floor(Math.random() * pool.length)];
+          }).join("")
         );
-
-        if (iteration >= text.length) {
-          clearInterval(interval);
-        }
-
+        if (iteration >= text.length) clearInterval(interval);
         iteration += 1 / 3;
       }, 30);
     } else {
       setDisplayText(text);
     }
-
     return () => clearInterval(interval);
   }, [isHovering, text]);
 
@@ -44,11 +38,13 @@ const ScrambleText = ({ text, className }: { text: string, className?: string })
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       className={className}
+      style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
     >
       {displayText}
     </span>
   );
 };
+
 
 export default function App() {
   return (
@@ -78,66 +74,85 @@ export default function App() {
 
         {/* Hero Section */}
         <section className="min-h-[80vh] flex flex-col justify-center" id="hero">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="font-mono text-cyber-green mb-1 flex items-center gap-2">
-              <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
-            </p>
-            <motion.p
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: { opacity: 1 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    delayChildren: 1,
-                    staggerChildren: 0.06,
-                  },
-                },
-              }}
-              className="font-mono text-amber-500 mb-6 ml-6 flex flex-wrap items-center tracking-normal"
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              {"sudhanshu shekhar".split("").map((char, index) => (
+              <p className="font-mono text-cyber-green mb-1 flex items-center gap-2">
+                <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
+              </p>
+              <motion.p
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 1 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      delayChildren: 1,
+                      staggerChildren: 0.06,
+                    },
+                  },
+                }}
+                className="font-mono text-amber-500 mb-6 ml-6 flex flex-wrap items-center tracking-normal"
+              >
+                {"sudhanshu shekhar".split("").map((char, index) => (
+                  <motion.span
+                    key={index}
+                    variants={{
+                      hidden: { opacity: 0, display: "none" },
+                      visible: { opacity: 1, display: "inline" },
+                    }}
+                    className="uppercase font-bold"
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
                 <motion.span
-                  key={index}
-                  variants={{
-                    hidden: { opacity: 0, display: "none" },
-                    visible: { opacity: 1, display: "inline" },
-                  }}
-                  className="uppercase font-bold"
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-              <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
-                className="inline-block w-2 h-5 bg-cyber-green ml-1"
-              />
-            </motion.p>
-            <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
-              <ScrambleText text="Cybersecurity &" /> <br />
-              <ScrambleText
-                text="Digital Forensics"
-                className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue"
-              />
-            </h1>
-            <h2 className="text-xl md:text-2xl text-gray-400 font-light mb-8 max-w-2xl">
-              BCA Student & Security Enthusiast. Specializing in digital investigations, vulnerability analysis, and secure software development.
-            </h2>
-            <div className="flex flex-wrap gap-4">
-              <a href="#projects" className="px-6 py-3 bg-cyber-green text-black font-mono font-medium rounded hover:bg-[#00cc33] transition-colors flex items-center gap-2">
-                <Terminal className="w-4 h-4" /> View Projects
-              </a>
-              <a href="#contact" className="px-6 py-3 border border-cyber-border hover:border-cyber-green font-mono rounded transition-colors flex items-center gap-2">
-                <Mail className="w-4 h-4" /> Contact Me
-              </a>
-            </div>
-          </motion.div>
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
+                  className="inline-block w-2 h-5 bg-cyber-green ml-1"
+                />
+              </motion.p>
+              <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
+                <ScrambleText text="Cybersecurity &" /> <br />
+                <ScrambleText
+                  text="Digital Forensics"
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue"
+                />
+              </h1>
+              <h2 className="text-xl md:text-2xl text-gray-400 font-light mb-8 max-w-2xl">
+                BCA Student & Security Enthusiast. Specializing in digital investigations, vulnerability analysis, and secure software development.
+              </h2>
+              <div className="flex flex-wrap gap-4">
+                <a href="#projects" className="px-6 py-3 bg-cyber-green text-black font-mono font-medium rounded hover:bg-[#00cc33] transition-colors flex items-center gap-2">
+                  <Terminal className="w-4 h-4" /> View Projects
+                </a>
+                <a href="#contact" className="px-6 py-3 border border-cyber-border hover:border-cyber-green font-mono rounded transition-colors flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> Contact Me
+                </a>
+              </div>
+            </motion.div>
+
+            {/* 3D Cybersecurity Robot Mascot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden lg:block"
+              style={{ height: '600px' }}
+            >
+              <Suspense fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="font-mono text-cyber-green text-sm animate-pulse">{'>'} Loading Cyber Agent...</div>
+                </div>
+              }>
+                <CyberMascot3D />
+              </Suspense>
+            </motion.div>
+          </div>
         </section>
 
         {/* About Section */}
