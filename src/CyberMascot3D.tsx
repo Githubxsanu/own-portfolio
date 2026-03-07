@@ -116,7 +116,7 @@ export default function CyberMascot3D() {
         // Wake up significantly if stretched manually (up to 85%)
         const manualStretchWake = Math.min(0.85, (Math.abs(stretchL.current) + Math.abs(stretchR.current)) / 75);
         const targetWake = isHovering.current ? 1 : manualStretchWake;
-        const wakeSpeed = isHovering.current ? 0.045 : 0.025;
+        const wakeSpeed = isHovering.current ? 0.03 : 0.015; // Slower for smoother transition
         wake.current = lerp(wake.current, targetWake, wakeSpeed);
         const w = wake.current; // shorthand
 
@@ -188,7 +188,7 @@ export default function CyberMascot3D() {
         /* ═══════════════════════════════════ */
         /* ════════  ROBOT  ══════════════════ */
         /* ═══════════════════════════════════ */
-        const cx = W / 2, cy = H / 2;
+        const cx = W / 2, cy = H * 0.44; // Repositioned for center labels balance
 
         // Sleepy: slow deep bob. Awake: faster smaller bob
         const bobAmplitude = lerp(11, 7, w);
@@ -416,18 +416,28 @@ export default function CyberMascot3D() {
             ctx.globalAlpha = 1;
         });
 
-        /* Labels — sharp and clear */
+        /* Labels — centered in the middle */
         const lp3 = 0.5 + Math.sin(time * 3) * 0.5;
-        ctx.font = 'bold 10px "JetBrains Mono",monospace'; ctx.textAlign = 'left'; ctx.globalAlpha = 1;
-        [[cx - 95, H - 18, '#00FF41', 'INTERACTIVE'], [cx + 15, H - 18, '#00F0FF', 'TRACKING']].forEach(([bx, by, bc, label]) => {
-            // Indicator dot
-            ctx.fillStyle = bc as string; ctx.shadowColor = bc as string; ctx.shadowBlur = 6 * lp3;
-            ctx.beginPath(); ctx.arc((bx as number) + 4, (by as number) - 4, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.font = 'bold 10px "JetBrains Mono",monospace'; ctx.globalAlpha = 1;
 
-            // Text - bright and sharp
-            ctx.shadowBlur = 0; ctx.fillStyle = '#e1e1f0';
-            ctx.fillText(label as string, (bx as number) + 14, by as number);
-        });
+        const labelY = H - 18;
+        const gap = 110; // separation between the two labels
+
+        // Left Label (Interactive)
+        const lx = W / 2 - gap;
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#00FF41'; ctx.shadowColor = '#00FF41'; ctx.shadowBlur = 6 * lp3;
+        ctx.beginPath(); ctx.arc(lx + 4, labelY - 4, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowBlur = 0; ctx.fillStyle = '#e1e1f0';
+        ctx.fillText('INTERACTIVE', lx + 14, labelY);
+
+        // Right Label (Tracking)
+        const rx = W / 2 + 10;
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#00F0FF'; ctx.shadowColor = '#00F0FF'; ctx.shadowBlur = 6 * lp3;
+        ctx.beginPath(); ctx.arc(rx + 4, labelY - 4, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowBlur = 0; ctx.fillStyle = '#e1e1f0';
+        ctx.fillText('TRACKING', rx + 14, labelY);
         ctx.globalAlpha = 1;
 
         rafRef.current = requestAnimationFrame(draw);
@@ -466,7 +476,7 @@ export default function CyberMascot3D() {
         // Approximate hit detection for antenna tips
         // The tips are roughly at cx +/- 50, cy - 100
         const cx = W / 2;
-        const cy = H / 2;
+        const cy = H * 0.44; // Match updated drawing center
         const dxL = mx - (cx - 55 + stretchL.current);
         const dyL = my - (cy - 110 + jumpY.current); // very rough approximation
         if (Math.sqrt(dxL * dxL + dyL * dyL) < 30) {
@@ -516,7 +526,7 @@ export default function CyberMascot3D() {
         const H = r.height;
 
         const cx = W / 2;
-        const cy = H / 2;
+        const cy = H * 0.44; // Match updated drawing center
 
         const dxL = tx - (cx - 55 + stretchL.current);
         const dyL = ty - (cy - 110 + jumpY.current);
