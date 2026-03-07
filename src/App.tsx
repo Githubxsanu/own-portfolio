@@ -56,7 +56,7 @@ export default function App() {
       {/* Background Effects */}
       <div className="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
       <div className="scanline"></div>
-      
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-40 bg-cyber-bg/80 backdrop-blur-md border-b border-cyber-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function App() {
       </nav>
 
       <main className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24">
-        
+
         {/* Hero Section */}
         <section className="min-h-[80vh] flex flex-col justify-center" id="hero">
           <motion.div
@@ -83,14 +83,17 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="font-mono text-cyber-green mb-4 flex items-center gap-2">
+            <p className="font-mono text-cyber-green mb-2 flex items-center gap-2">
               <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
+            </p>
+            <p className="font-mono text-white mb-4 ml-6 uppercase tracking-wider">
+              sudhanshu shekhar
             </p>
             <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
               <ScrambleText text="Cybersecurity &" /> <br />
-              <ScrambleText 
-                text="Digital Forensics" 
-                className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue" 
+              <ScrambleText
+                text="Digital Forensics"
+                className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue"
               />
             </h1>
             <h2 className="text-xl md:text-2xl text-gray-400 font-light mb-8 max-w-2xl">
@@ -157,7 +160,7 @@ export default function App() {
           >
             <h3 className="font-mono text-cyber-green mb-2">02. Technical Arsenal</h3>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-12">Skills & Technologies</h2>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Category 1 */}
               <div className="bg-cyber-surface border border-cyber-border p-6 rounded-lg hover:border-cyber-green transition-colors">
@@ -406,7 +409,7 @@ export default function App() {
             <p className="text-gray-400 mb-10 leading-relaxed">
               I'm currently looking for internship opportunities in cybersecurity, digital forensics, or secure web development. Whether you have a question or just want to say hi, my inbox is always open.
             </p>
-            
+
             <a href="mailto:sanuforwork@gmail.com" className="inline-block px-8 py-4 bg-transparent border border-cyber-green text-cyber-green font-mono rounded hover:bg-cyber-green-dim transition-all mb-16">
               Initialize Handshake
             </a>
