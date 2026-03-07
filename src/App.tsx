@@ -83,12 +83,22 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="font-mono text-cyber-green mb-2 flex items-center gap-2">
+            <p className="font-mono text-cyber-green mb-1 flex items-center gap-2">
               <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
             </p>
-            <p className="font-mono text-white mb-4 ml-6 uppercase tracking-wider">
-              sudhanshu shekhar
-            </p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.1 }}
+              className="font-mono text-white mb-6 ml-6 flex items-center gap-1"
+            >
+              <span className="uppercase tracking-[0.2em] font-bold">sudhanshu shekhar</span>
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
+                className="inline-block w-2 h-5 bg-cyber-green"
+              />
+            </motion.p>
             <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
               <ScrambleText text="Cybersecurity &" /> <br />
               <ScrambleText
