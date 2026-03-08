@@ -452,7 +452,7 @@ export default function App() {
             <h3 className="font-mono text-cyber-green mb-2">06. Establish Connection</h3>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
             <p className="text-gray-400 mb-10 leading-relaxed">
-              I'm currently looking for internship opportunities in cybersecurity, digital forensics, or secure web development. Whether you have a question or just want to say hi, my inbox is always open.
+              Whether you have a question or just want to say hi, my inbox is always open.
             </p>
 
             <a href="mailto:sanuforwork@gmail.com" className="inline-block px-8 py-4 bg-transparent border border-cyber-green text-cyber-green font-mono rounded hover:bg-cyber-green-dim transition-all mb-16">
