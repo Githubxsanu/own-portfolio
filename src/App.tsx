@@ -488,9 +488,6 @@ export default function App() {
           <p className="font-mono text-sm text-gray-500 mb-2">
             Exploring Security, Digital Evidence, and the Architecture of the Web.
           </p>
-          <p className="font-mono text-xs text-gray-600">
-            designed and built with zeal
-          </p>
         </div>
       </footer>
     </div>
