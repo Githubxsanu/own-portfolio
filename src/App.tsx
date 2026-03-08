@@ -460,19 +460,19 @@ export default function App() {
             </a>
 
             <div className="flex justify-center gap-8">
-              <a href="mailto:sanuforwork@gmail.com" className="text-gray-500 hover:text-cyber-green transition-colors">
+              <a href="mailto:sanuforwork@gmail.com" className="transition-all duration-300 hover:scale-110" style={{ color: '#EA4335', filter: 'drop-shadow(0 0 0px transparent)' }} onMouseEnter={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 8px #EA4335)')} onMouseLeave={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 0px transparent)')}>
                 <Mail className="w-6 h-6" />
                 <span className="sr-only">Email</span>
               </a>
-              <a href="https://github.com/Githubxsanu" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+              <a href="https://github.com/Githubxsanu" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-110" style={{ color: '#ffffff', filter: 'drop-shadow(0 0 0px transparent)' }} onMouseEnter={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 8px #ffffff)')} onMouseLeave={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 0px transparent)')}>
                 <Github className="w-6 h-6" />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="https://www.linkedin.com/in/herexsanu/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-cyber-blue transition-colors">
+              <a href="https://www.linkedin.com/in/herexsanu/" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-110" style={{ color: '#0A66C2', filter: 'drop-shadow(0 0 0px transparent)' }} onMouseEnter={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 8px #0A66C2)')} onMouseLeave={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 0px transparent)')}>
                 <Linkedin className="w-6 h-6" />
                 <span className="sr-only">LinkedIn</span>
               </a>
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">
+              <a href="#" className="transition-all duration-300 hover:scale-110" style={{ color: '#06B6D4', filter: 'drop-shadow(0 0 0px transparent)' }} onMouseEnter={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 8px #06B6D4)')} onMouseLeave={e => (e.currentTarget.style.filter = 'drop-shadow(0 0 0px transparent)')}>
                 <Globe className="w-6 h-6" />
                 <span className="sr-only">Personal Website</span>
               </a>
