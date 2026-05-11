@@ -3,11 +3,12 @@ import { motion } from "motion/react";
 import { Terminal, Shield, Search, Code2, Database, Lock, Globe, Mail, Github, Linkedin, ExternalLink, ChevronRight, FileText, Cpu, Network } from "lucide-react";
 
 const CyberMascot3D = lazy(() => import('./CyberMascot3D'));
+import ScrollHero from './ScrollHero';
 
 const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const lowerLetters = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-const ScrambleText = ({ text, className }: { text: string, className?: string }) => {
+export const ScrambleText = ({ text, className }: { text: string, className?: string }) => {
   const [displayText, setDisplayText] = useState(text);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -70,91 +71,12 @@ export default function App() {
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24">
+      <main className="relative z-10 w-full">
 
         {/* Hero Section */}
-        <section className="min-h-[80vh] flex flex-col justify-center" id="hero">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="font-mono text-cyber-green mb-1 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> root@localhost:~# whoami
-              </p>
-              <motion.p
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: { opacity: 1 },
-                  visible: {
-                    opacity: 1,
-                    transition: {
-                      delayChildren: 1,
-                      staggerChildren: 0.06,
-                    },
-                  },
-                }}
-                className="font-mono text-amber-500 mb-6 ml-6 flex flex-wrap items-center tracking-normal"
-              >
-                {"sudhanshu shekhar".split("").map((char, index) => (
-                  <motion.span
-                    key={index}
-                    variants={{
-                      hidden: { opacity: 0, display: "none" },
-                      visible: { opacity: 1, display: "inline" },
-                    }}
-                    className="uppercase font-bold"
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
-                  className="inline-block w-2 h-5 bg-cyber-green ml-1"
-                />
-              </motion.p>
-              <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight cursor-default">
-                <ScrambleText text="Cybersecurity &" /> <br />
-                <ScrambleText
-                  text="Digital Forensics"
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue"
-                />
-              </h1>
-              <h2 className="text-xl md:text-2xl text-gray-400 font-light mb-8 max-w-2xl">
-                BCA Student & Security Enthusiast. Specializing in digital investigations, vulnerability analysis, and secure software development.
-              </h2>
-              <div className="flex flex-wrap gap-4">
-                <a href="#projects" className="px-6 py-3 bg-cyber-green text-black font-mono font-medium rounded hover:bg-[#00cc33] transition-colors flex items-center gap-2">
-                  <Terminal className="w-4 h-4" /> View Projects
-                </a>
-                <a href="#contact" className="px-6 py-3 border border-cyber-border hover:border-cyber-green font-mono rounded transition-colors flex items-center gap-2">
-                  <Mail className="w-4 h-4" /> Contact Me
-                </a>
-              </div>
-            </motion.div>
+        <ScrollHero />
 
-            {/* 3D Cybersecurity Robot Mascot */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative mt-12 lg:mt-0"
-              style={{ height: 'clamp(400px, 60vh, 600px)' }}
-            >
-              <Suspense fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="font-mono text-cyber-green text-sm animate-pulse">{'>'} Loading Cyber Agent...</div>
-                </div>
-              }>
-                <CyberMascot3D />
-              </Suspense>
-            </motion.div>
-          </div>
-        </section>
-
+        <div className="max-w-7xl mx-auto px-6 pt-12 pb-24">
         {/* About Section */}
         <section id="about" className="py-24 border-t border-cyber-border border-dashed">
           <motion.div
@@ -179,18 +101,10 @@ export default function App() {
                 </p>
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-square rounded-lg border border-cyber-border bg-cyber-surface p-8 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyber-green-dim to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="h-full w-full border border-cyber-border/50 rounded flex items-center justify-center relative z-10">
-                  <Shield className="w-32 h-32 text-cyber-border group-hover:text-cyber-green transition-colors duration-500" strokeWidth={1} />
-                </div>
-                {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyber-green"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyber-green"></div>
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyber-green"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyber-green"></div>
-              </div>
+            <div className="relative h-[400px] w-full flex items-center justify-center md:h-[500px]">
+              <Suspense fallback={<Shield className="w-32 h-32 text-cyber-border animate-pulse" strokeWidth={1} />}>
+                <CyberMascot3D />
+              </Suspense>
             </div>
           </motion.div>
         </section>
@@ -361,6 +275,29 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Project 5 */}
+              <div className="group relative bg-cyber-surface border border-cyber-border p-8 rounded-lg overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Database className="w-24 h-24" />
+                </div>
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="font-mono text-xs text-indigo-500 px-2 py-1 border border-indigo-500/30 rounded bg-indigo-500/10">Web3 & Smart Contracts</div>
+                    <a href="https://escrow-payment-system.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors"><ExternalLink className="w-5 h-5" /></a>
+                  </div>
+                  <h4 className="font-display text-2xl font-bold text-white mb-3 group-hover:text-indigo-500 transition-colors">Escrow Contract Service</h4>
+                  <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                    It is a smart contract platform based on web3, digital signature using hash 256 for authentication.
+                  </p>
+                  <div className="flex flex-wrap gap-3 font-mono text-xs text-gray-500">
+                    <span>Web3</span>
+                    <span>Solidity</span>
+                    <span>SHA-256</span>
+                    <span>Digital Signature</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </section>
@@ -479,6 +416,7 @@ export default function App() {
             </div>
           </motion.div>
         </section>
+        </div>
 
       </main>
 
